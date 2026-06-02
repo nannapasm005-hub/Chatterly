@@ -1,0 +1,17 @@
+# API Keys - ห้าม push เด็ดขาด!
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Model cache
+*.pt
+*.bin
+
+# Eval outputs
+chatterly_evaluation.png
+chatterly_eval_results.json
