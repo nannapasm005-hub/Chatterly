@@ -70,6 +70,22 @@
     }
     .logo span { color: var(--orange); }
 
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-link {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--text); }
+
     .nav-dots {
       display: flex;
       gap: 0.5rem;
@@ -383,12 +399,15 @@
 
 <nav>
   <div class="logo">Chat<span>terly</span></div>
-  <div class="nav-dots">
-    <span style="background:#e8744a"></span>
-    <span style="background:#2ec4b6"></span>
-    <span style="background:#e040a0"></span>
-    <span style="background:#f5c842"></span>
-    <span style="background:#2e2c4a"></span>
+  <div class="nav-right">
+    <a class="nav-link" href="/about">เกี่ยวกับ</a>
+    <div class="nav-dots">
+      <span style="background:#e8744a"></span>
+      <span style="background:#2ec4b6"></span>
+      <span style="background:#e040a0"></span>
+      <span style="background:#f5c842"></span>
+      <span style="background:#2e2c4a"></span>
+    </div>
   </div>
 </nav>
 

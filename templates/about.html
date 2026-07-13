@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>เกี่ยวกับ · Chatterly</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Sarabun:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f0e17;
+      --surface: #1a1928;
+      --card: #211f35;
+      --border: #2e2c4a;
+      --orange: #e8744a;
+      --teal: #2ec4b6;
+      --pink: #e040a0;
+      --yellow: #f5c842;
+      --text: #fffffe;
+      --muted: #9b98b8;
+      --pos: #2ec4b6;
+      --neu: #f5c842;
+      --neg: #e8744a;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Sarabun', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Background decoration ── */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -200px; right: -200px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,116,74,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -150px; left: -150px;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(46,196,182,0.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--text);
+      letter-spacing: -0.03em;
+      text-decoration: none;
+    }
+    .logo span { color: var(--orange); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .nav-link {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--text); }
+    .nav-dots { display: flex; gap: 0.5rem; }
+    .nav-dots span { width: 10px; height: 10px; border-radius: 50%; }
+
+    /* ── Layout ── */
+    .wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem 5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 1.2rem;
+    }
+    h1 em { font-style: normal; color: var(--orange); }
+
+    .lead {
+      color: var(--muted);
+      font-size: 1.1rem;
+      font-weight: 300;
+      line-height: 1.8;
+      max-width: 560px;
+    }
+
+    h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.4rem;
+      letter-spacing: -0.02em;
+      margin: 3.5rem 0 1.25rem;
+    }
+
+    p.body { color: var(--muted); line-height: 1.8; font-weight: 300; }
+    p.body strong { color: var(--text); font-weight: 500; }
+
+    /* ── Flow ── */
+    .flow {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-top: 0.5rem;
+    }
+    .flow-step {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1rem 1.25rem;
+    }
+    .flow-num {
+      flex-shrink: 0;
+      width: 30px; height: 30px;
+      border-radius: 8px;
+      background: rgba(232,116,74,0.15);
+      color: var(--orange);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .flow-text { font-size: 0.95rem; }
+    .flow-text strong { color: var(--text); }
+    .flow-text span { color: var(--muted); font-size: 0.85rem; }
+
+    /* ── Stat cards ── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+    @media (max-width: 560px) { .stats { grid-template-columns: 1fr; } }
+
+    .stat {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .stat-value {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 2rem;
+      color: var(--teal);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── Table ── */
+    .table-wrap {
+      overflow-x: auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      margin-top: 0.5rem;
+    }
+    table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+    th, td { padding: 0.85rem 1.25rem; text-align: left; white-space: nowrap; }
+    th {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+    }
+    td { color: var(--text); border-bottom: 1px solid var(--border); }
+    tr:last-child td { border-bottom: none; }
+    .pill {
+      display: inline-block;
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+    }
+    .pill.pos { background: rgba(46,196,182,0.15); color: var(--pos); }
+    .pill.neu { background: rgba(245,200,66,0.15); color: var(--neu); }
+    .pill.neg { background: rgba(232,116,74,0.15); color: var(--neg); }
+
+    /* ── Tech chips ── */
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .chip {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.4rem 1rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .chip strong { color: var(--text); }
+
+    /* ── CTA ── */
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 3rem;
+      background: var(--orange);
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      padding: 0.8rem 2rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.03em;
+      transition: all 0.2s;
+    }
+    .cta:hover { background: #d4633a; transform: translateY(-1px); }
+
+    .note {
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 300;
+      margin-top: 1rem;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="/">Chat<span>terly</span></a>
+  <div class="nav-right">
+    <a class="nav-link" href="/">หน้าแรก</a>
+    <div class="nav-dots">
+      <span style="background:#e8744a"></span>
+      <span style="background:#2ec4b6"></span>
+      <span style="background:#e040a0"></span>
+      <span style="background:#f5c842"></span>
+      <span style="background:#2e2c4a"></span>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <div class="eyebrow">เกี่ยวกับโปรเจกต์</div>
+  <h1>วิเคราะห์อารมณ์ แล้ว<em>สื่อสารให้ดีขึ้น</em></h1>
+  <p class="lead">
+    Chatterly คือผู้ช่วยสื่อสารภาษาไทยที่วิเคราะห์อารมณ์ข้อความด้วยโมเดล AI
+    และเมื่อพบข้อความเชิงลบ จะช่วย rewrite ให้เป็นข้อความที่สร้างสรรค์กว่า
+    โดยยังคงความหมายหลักไว้
+  </p>
+
+  <h2>ทำงานยังไง</h2>
+  <div class="flow">
+    <div class="flow-step">
+      <div class="flow-num">1</div>
+      <div class="flow-text"><strong>ตัดคำภาษาไทย</strong> <span>— PyThaiNLP tokenization</span></div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">2</div>
+      <div class="flow-text"><strong>วิเคราะห์ Sentiment</strong> <span>— WangchanBERTa จำแนก pos / neu / neg</span></div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">3</div>
+      <div class="flow-text"><strong>ถ้าเป็นเชิงลบ → Rewrite</strong> <span>— Groq (Llama 3.3 70B) เขียนใหม่ให้สื่อสารดีกว่า</span></div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">4</div>
+      <div class="flow-text"><strong>แสดงผล Before / After</strong> <span>— เทียบข้อความเดิมกับที่แนะนำแบบคู่กัน</span></div>
+    </div>
+  </div>
+
+  <h2>ผลการประเมิน</h2>
+  <p class="body" style="margin-bottom:1.25rem">
+    ทดสอบบน <strong>Wisesight Sentiment</strong> ซึ่งเป็น benchmark มาตรฐานของ Thai NLP
+    (balanced 66 ตัวอย่างต่อ class, รวม n=198)
+  </p>
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-value">94%</div>
+      <div class="stat-label">Accuracy</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">0.944</div>
+      <div class="stat-label">Macro F1</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">95.7%</div>
+      <div class="stat-label">Avg Confidence</div>
+    </div>
+  </div>
+
+  <h2>คะแนนรายคลาส</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Class</th><th>Precision</th><th>Recall</th><th>F1</th><th>Support</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="pill pos">pos</span></td><td>0.967</td><td>0.879</td><td>0.921</td><td>66</td></tr>
+        <tr><td><span class="pill neu">neu</span></td><td>0.887</td><td>0.955</td><td>0.920</td><td>66</td></tr>
+        <tr><td><span class="pill neg">neg</span></td><td>0.985</td><td>1.000</td><td>0.992</td><td>66</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">neg F1 = 0.992 — แทบสมบูรณ์แบบสำหรับ use case หลักของ Chatterly (การตรวจจับข้อความเชิงลบ)</p>
+
+  <h2>เทคโนโลยีที่ใช้</h2>
+  <div class="chips">
+    <div class="chip">Sentiment <strong>WangchanBERTa</strong></div>
+    <div class="chip">LLM Rewriter <strong>Groq · Llama 3.3 70B</strong></div>
+    <div class="chip">Thai NLP <strong>PyThaiNLP</strong></div>
+    <div class="chip">Backend <strong>Flask</strong></div>
+    <div class="chip">Evaluation <strong>scikit-learn</strong></div>
+  </div>
+
+  <a class="cta" href="/">ลองใช้งาน ✦</a>
+
+</div>
+
+</body>
+</html>

@@ -6,19 +6,45 @@
 
 ---
 
+## Demo
+
+กรอกข้อความภาษาไทย → ระบบวิเคราะห์ sentiment แบบเรียลไทม์ และถ้าเป็นเชิงลบจะแนะนำข้อความที่สื่อสารได้ดีกว่าให้ทันที
+
+<p align="center">
+  <img src="screenshot/result.png" alt="Chatterly — ผลวิเคราะห์เชิงลบ พร้อม AI rewrite" width="90%">
+</p>
+
+|  หน้าแรก (กรอกข้อความ)  |  ผลวิเคราะห์ + AI Rewrite  |
+|:---:|:---:|
+| ![หน้าแรก](screenshot/main.png) | ![ผลวิเคราะห์](screenshot/result.png) |
+| กรอกข้อความที่ต้องการวิเคราะห์ | sentiment + ความมั่นใจ + Before/After |
+
+---
+
 ## Project Structure
 
 ```
 chatterly/
 ├── templates/
-│   └── index.html              # Web UI (Flask)
+│   ├── index.html              # Web UI หลัก (วิเคราะห์ + rewrite)
+│   └── about.html              # หน้าเกี่ยวกับโปรเจกต์ (route /about)
+├── static/                     # ไฟล์ static (assets)
 ├── app.py                      # Main Flask app + Sentiment + Groq Rewriter
 ├── evaluate.py                 # Evaluation script (Wisesight benchmark)
-├── requirements.txt
+├── requirements.txt            # Dependencies (app + evaluation)
 ├── .env.example                # Template สำหรับ API Key
 ├── .gitignore
+├── LICENSE
 └── README.md
 ```
+
+**Routes:**
+
+| Route | Method | หน้าที่ |
+|-------|--------|--------|
+| `/` | GET | หน้าหลัก — กรอกข้อความเพื่อวิเคราะห์ |
+| `/analyze` | POST | รับข้อความ → sentiment + rewrite (JSON) |
+| `/about` | GET | หน้าเกี่ยวกับโปรเจกต์ |
 
 ---
 
@@ -112,11 +138,15 @@ GROQ_API_KEY=your_groq_api_key_here
 ```
 > สมัคร Groq API Key ฟรีได้ที่ https://console.groq.com
 
+> ⚠️ **จำเป็นต้องมี** — ถ้าไม่มี `.env` หรือไม่ได้ตั้ง `GROQ_API_KEY` แอปจะไม่ start (raise error ทันที) เพราะฟีเจอร์ rewrite ต้องใช้ Groq API
+
 ### 4. Run
 ```bash
 python app.py
 ```
 เปิด http://localhost:5000
+
+> 📦 **ครั้งแรกที่รัน** โมเดล WangchanBERTa (~400MB) จะถูกดาวน์โหลดจาก Hugging Face อัตโนมัติ อาจใช้เวลาสักครู่ — รอจนขึ้น `Model loaded!` ใน terminal ก่อนเปิดเว็บ (ครั้งต่อไปจะโหลดจาก cache เร็วขึ้น)
 
 ---
 
@@ -164,3 +194,9 @@ python evaluate.py
 [Wisesight Sentiment](https://github.com/PyThaiNLP/wisesight-sentiment) — PyThaiNLP
 
 Thai social media text · 3 classes (pos/neu/neg) · benchmark มาตรฐาน Thai NLP
+
+---
+
+## License
+
+เผยแพร่ภายใต้สัญญาอนุญาต **MIT** — ดูรายละเอียดที่ไฟล์ [LICENSE](LICENSE)

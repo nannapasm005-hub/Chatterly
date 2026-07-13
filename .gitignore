@@ -15,3 +15,6 @@ venv/
 # Eval outputs
 chatterly_evaluation.png
 chatterly_eval_results.json
+
+# macOS
+.DS_Store
